@@ -17,12 +17,15 @@ def correctFileName(filename):
     ret = filename.lower()
     illegalFirstChars = [' ','.','_','-']
     illegalChars = ['#','%','&','{','}','\\','<','>','*','?','/',' ','$','!',"'",'"',':','@']
-    for first in illegalFirstChars:
-        if ret[0] == first:
-            ret = ret[1:]
+    for index in range(len(filename)):
+        if not filename[index] in illegalFirstChars:
+            ret = filename[index:]
+            break
+
     for char in illegalChars:
         ret = ret.replace(char,"")
     return ret
+
 
 #first set of parameters passed to api call
 userlistparam = {'api_key': apiKey, 'api_secret': apiSec , 'data_type': "JSON", 'page_size': 300}
@@ -90,6 +93,7 @@ for i in range(len(users)):
                 #this code below just displays status of downloads within terminal (credit to stack overflow for this)
                 #if you don't need this, just remove the comments on the triple quotes
                 #'''
+
                 meta = u.info()
                 file_size = int(meta.getheaders("Content-Length")[0])
                 print "Downloading: %s Bytes: %s" % (filename, file_size)
@@ -106,11 +110,12 @@ for i in range(len(users)):
                     status = r"%10d  [%3.2f%%]" % (file_size_dl, file_size_dl * 100. / file_size)
                     status = status + chr(8)*(len(status)+1)
                     print status,
-                #'''
                 
+                #'''
                 f.close()
                 
                 #print filename
                 
         
         #print username
+
