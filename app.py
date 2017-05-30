@@ -53,28 +53,43 @@ for i in range(len(users)):
 
     #if there user has any recordings, this block of code will download them
     if (len(currUserMeetings) > 0):
-        
+
+        #if folder for videos does not exist yet, creates a folder named after username
         if not os.path.exists("./" + username):
             os.makedirs("./" + username)
-        print username
-        print " "
-        for j in range(len(currUserMeetings)):
+
+        #print username
+        #print " "
+        
+       #for loop iterates through a meeting object, and we specfically want to contruct the meeting name
+       #as well as iterate through recordings of a meeting
+       for j in range(len(currUserMeetings)):
+            
             currMeeting = currUserMeetings[j]
             #print currMeeting
             meetingName = currMeeting['topic'] + "-" + currMeeting['start_time']
             meetingName = correctFileName(meetingName)
             #print meetingName
-            for k in range(len(currMeeting['recording_files'])): 
+
+            #a meeting might have multiple recordings, so this code block will iterate through those meetings
+            for k in range(len(currMeeting['recording_files'])):
+                
                 currRecording = currMeeting['recording_files'][k]
+
+                #some recording files are just audio, so we want to ensure we're only downloading the videos
                 if currRecording['file_type'] != 'MP4':
                     continue
+
+                #we finally  get to the code where we start donwloading
                 filename = meetingName + '-' + str(k+1) + '.' + currRecording['file_type']
                 import urllib2
-
                 url = currRecording['download_url']
-                
                 u = urllib2.urlopen(url)
                 f = open("./" + username + "/" + filename, 'wb')
+                
+                #this code below just displays status of downloads within terminal (credit to stack overflow for this)
+                #if you don't need this, just remove the comments on the triple quotes
+                #'''
                 meta = u.info()
                 file_size = int(meta.getheaders("Content-Length")[0])
                 print "Downloading: %s Bytes: %s" % (filename, file_size)
@@ -91,7 +106,8 @@ for i in range(len(users)):
                     status = r"%10d  [%3.2f%%]" % (file_size_dl, file_size_dl * 100. / file_size)
                     status = status + chr(8)*(len(status)+1)
                     print status,
-
+                #'''
+                
                 f.close()
                 
                 #print filename
