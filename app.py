@@ -85,36 +85,40 @@ for i in range(len(users)):
 
                 #we finally  get to the code where we start donwloading
                 filename = meetingName + '-' + str(k+1) + '.' + currRecording['file_type']
-                import urllib2
-                url = currRecording['download_url']
-                u = urllib2.urlopen(url)
-                f = open("./" + username + "/" + filename, 'wb')
                 
-                #this code below just displays status of downloads within terminal (credit to stack overflow for this)
-                #if you don't need this, just remove the comments on the triple quotes
-                #'''
+                #if recording file is already downloaded, this script won't download it again
+                #this allows us to call this script to download new files after downloading an inital batch
+                if not os.path.exists("./" + username + "/" + filename):
+                    import urllib2
+                    url = currRecording['download_url']
+                    u = urllib2.urlopen(url)
+                    f = open("./" + username + "/" + filename, 'wb')
 
-                meta = u.info()
-                file_size = int(meta.getheaders("Content-Length")[0])
-                print "Downloading: %s Bytes: %s" % (filename, file_size)
-                
-                file_size_dl = 0
-                block_sz = 8192
-                while True:
-                    buffer = u.read(block_sz)
-                    if not buffer:
-                        break
-                    
-                    file_size_dl += len(buffer)
-                    f.write(buffer)
-                    status = r"%10d  [%3.2f%%]" % (file_size_dl, file_size_dl * 100. / file_size)
-                    status = status + chr(8)*(len(status)+1)
-                    print status,
-                
-                #'''
-                f.close()
-                
-                #print filename
+                    #this code below just displays status of downloads within terminal (credit to stack overflow for this)
+                    #if you don't need this, just remove the comments on the triple quotes
+                    #'''
+
+                    meta = u.info()
+                    file_size = int(meta.getheaders("Content-Length")[0])
+                    print "Downloading: %s Bytes: %s" % (filename, file_size)
+
+                    file_size_dl = 0
+                    block_sz = 8192
+                    while True:
+                        buffer = u.read(block_sz)
+                        if not buffer:
+                            break
+
+                        file_size_dl += len(buffer)
+                        f.write(buffer)
+                        status = r"%10d  [%3.2f%%]" % (file_size_dl, file_size_dl * 100. / file_size)
+                        status = status + chr(8)*(len(status)+1)
+                        print status,
+
+                    #'''
+                    f.close()
+
+                    #print filename
                 
         
         #print username
