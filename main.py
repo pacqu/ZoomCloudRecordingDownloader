@@ -130,7 +130,7 @@ for i in range(len(users)):
                         print status,
 
                 else:
-                    print "Already Downloaded %d.%d out of %d" % (j+1,k+1,len(currUserMeeting))
+                    print "Already Downloaded %d.%d out of %d" % (j+1,k+1,len(currUserMeetings))
                         #'''
                     #f.close()
 
