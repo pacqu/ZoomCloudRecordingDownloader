@@ -128,12 +128,16 @@ for i in range(len(users)):
                         status = r"%10d  [%3.2f%%]" % (file_size_dl, file_size_dl * 100. / file_size)
                         status = status + chr(8)*(len(status)+1)
                         print status,
-                       
+
+                else:
+                    print "Already Downloaded %d.%d out of %d" % (j+1,k+1,len(currUserMeeting))
                         #'''
                     #f.close()
 
                     #print filename
             if j == (len(currUserMeetings) - 1):
+                print "Done Downloading User %s Recordings" % username
                 print
+                
         #print username
 
