@@ -1,0 +1,15 @@
+* Initial Setup
+** Open Terminal, go into folder where you want the recordings to be downloaded 
+** Run "git clone https://github.com/pacqu/ZoomCloudRecordingDownloader.git"
+** Run "cd ZoomCloudRecordingDownloader"
+** Create or Copy/Paste a text file called "api.txt" into this folder, where: 
+*** The First Line is your API Key
+*** The Second Line is your API Secret
+** Run "python main.py"
+** Allow program to run to completion
+** The folder should now have multiple folders containing the recording of corresponding users
+
+* Downloading New Recordings
+** Make sure you had an aforementioned "api.txt" file in your folder.
+** Run "python main.py"
+** Allow program to run to completion
