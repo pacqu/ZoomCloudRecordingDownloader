@@ -5,6 +5,8 @@
 ** Create or Copy/Paste a text file called "api.txt" into this folder, where: 
 *** The First Line is your API Key
 *** The Second Line is your API Secret
+*** The Third Line is an email of an zoom account associated with the cloud recordings you want to download
+*** The Fourth Line is the password for the corresponding zoom account
 ** Run "python main.py"
 ** Allow program to run to completion
 ** The folder should now have multiple folders containing the recording of corresponding users
